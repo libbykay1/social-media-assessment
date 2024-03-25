@@ -1,0 +1,35 @@
+package com.groupfour.socialmedia.controllers;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.groupfour.socialmedia.services.ValidateService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/validate")
+public class ValidateController {
+	
+	private final ValidateService validateService;
+	
+	
+	@GetMapping("username/available/@{username}")
+	public boolean valdateUsername(@PathVariable String username) {
+		return validateService.validateUsernameAvailable(username);
+	}
+	
+	@GetMapping("username/exists/@{username}")
+	public boolean validateUserNameExists(@PathVariable String username) {
+		return validateService.validateUsernameExists(username);
+	}
+	
+	@GetMapping("tag/exists/{label}") 
+	public boolean validateHashtagExists(@PathVariable String label) {
+		return validateService.validateHashtagExists(label);
+	}
+
+}
